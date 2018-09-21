@@ -1,0 +1,184 @@
+<html>
+	<head>
+		<script src="three.min.js"></script>
+		<script src="threex.keyboardstate.js"></script>
+	</head>
+	<body>		
+	</body>
+	<foot>
+		<script>
+			//criando o redenrizador
+			var renderer = new THREE.WebGLRenderer({antialias: true});
+			renderer.setSize(document.body.clientWidth, 
+			document.body.clientHeight);
+
+			document.body.appendChild(renderer.domElement);
+			renderer.setClearColor(0x1C1C1C);
+			renderer.clear();
+
+			//criando a camera e a cena
+			var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 1, 100000);
+			camera.position.z = 1400;
+			camera.position.y = 600;
+
+			var scene = new THREE.Scene();
+
+			//sol
+			var sol = new THREE.Mesh(new THREE.SphereGeometry(130,100,100),
+			//new THREE.MeshBasicMaterial({map: THREE.ImageUtils.loadTexture('sol.jpg')}));
+			new THREE.MeshLambertMaterial({color: 0xFF8C00}));
+
+			//luz
+			var luzamb = new THREE.AmbientLight(0x747474, 1);
+			scene.add(luzamb);
+
+			var light = new THREE.PointLight(0xFFFFFF, 1, 0);
+      		light.add(sol);
+      		scene.add(light);
+
+			renderer.render(scene, camera);
+
+			//mercurio
+			var mercurio= new THREE.Mesh(new THREE.SphereGeometry(10,50,50),
+            new THREE.MeshLambertMaterial({color: 0xCDBE70}));
+	        scene.add(mercurio);
+		 	mercurio.translateZ(130);
+		 	mercurio.translateX(10);
+		 
+		 	//venus
+			var venus= new THREE.Mesh(new THREE.SphereGeometry(15,50,50),
+	        new THREE.MeshLambertMaterial({color: 0xFF7F24}));
+		    scene.add(venus);
+			venus.translateZ(150); 
+			venus.translateX(50);
+			 
+			//terra
+			var terra= new THREE.Mesh(new THREE.SphereGeometry(20,50,50),
+	        new THREE.MeshLambertMaterial({color: 0x4F94CD}));
+		    scene.add(terra);
+			terra.translateZ(180); 
+			terra.translateX(100);
+
+			//marte
+			var marte= new THREE.Mesh(new THREE.SphereGeometry(13,50,50),
+	        new THREE.MeshLambertMaterial({color: 0x8B4C39}));
+		    scene.add(marte);
+			marte.translateZ(210);
+			marte.translateX(200); 
+
+			//jupter
+			var jupter= new THREE.Mesh(new THREE.SphereGeometry(35,50,50),
+	        new THREE.MeshLambertMaterial({color: 0xCDAA7D}));
+		    scene.add(jupter);
+			jupter.translateZ(260); 
+			jupter.translateX(20);
+
+			//saturno
+			var saturno = new THREE.Mesh(new THREE.SphereGeometry(30,50,50),
+	        new THREE.MeshLambertMaterial({color: 0xEEDD82}));
+		    scene.add(saturno);
+			saturno.translateZ(330);
+			saturno.translateX(300); 
+			
+			//urano
+			var urano = new THREE.Mesh(new THREE.SphereGeometry(25,50,50),
+	        new THREE.MeshLambertMaterial({color: 0xBCD2EE}));
+		    scene.add(urano);
+			urano.translateZ(410);
+			urano.translateX(10); 
+
+			//neturno			 
+			var neturno = new THREE.Mesh(new THREE.SphereGeometry(22,50,50),
+	        new THREE.MeshLambertMaterial({color: 0x607B8B}));
+		    scene.add(neturno);
+			neturno.translateZ(490);
+			neturno.translateX(100); 
+		 
+      		//tecladooooo
+			var keyboard;
+			keyboard = new THREEx.KeyboardState();
+			camera.lookAt(scene.position);
+
+			//p animar os planetas
+      		function animate(t) {      
+	        mercurio.position.x = Math.sin(t/650)*200;
+	        mercurio.position.z = Math.cos(t/650)*200;
+
+	        venus.position.x = Math.sin(t/800)*250;
+	        venus.position.z = Math.cos(t/800)*250;
+
+	        terra.position.x = Math.sin(t/1100)*350;
+	        terra.position.z = Math.cos(t/1100)*350;
+
+	        marte.position.x = Math.sin(t/1400+5)*450;
+	        marte.position.z = Math.cos(t/1400+5)*450;
+
+	        jupter.position.x = Math.sin(t/1700+5)*550;
+	        jupter.position.z = Math.cos(t/1700+5)*550;
+
+	        saturno.position.x = Math.sin(t/2000+10)*650;
+	        saturno.position.z = Math.cos(t/2000+10)*650;
+
+	        urano.position.x = Math.sin(t/2300+30)*650;
+	        urano.position.z = Math.cos(t/2300+30)*650;
+
+	        neturno.position.x = Math.sin(t/2000)*650;
+	        neturno.position.z = Math.cos(t/2000)*650;
+				
+			renderer.render( scene, camera );
+			requestAnimationFrame(animate, renderer.domElement);
+			};
+
+	      	animate(new Date().getTime());
+
+      		//criando estrelas
+      		for (i=0; i<2000; i++) {
+	      	var estrelas = new THREE.Mesh(new THREE.SphereGeometry(5,2,2),
+	      	new THREE.MeshBasicMaterial({color: 0xFFFFFF}));
+	      	estrelas.position.x = Math.random()*7000-2500;
+	      	estrelas.position.y = Math.random()*7000-2500;
+	      	estrelas.position.z = Math.random()*-1000-500;
+	      	scene.add(estrelas);
+	      	};
+
+	      	estrelas.castShadow = true;
+
+	     	//constelacao nao sei o nome
+	     	var star1 = new THREE.Mesh(new THREE.SphereGeometry(5,2,2),
+	      	new THREE.MeshBasicMaterial({color: 0xAFEEEE}));
+	      	star1.position.y = 250+125;
+	      	star1.position.x = 350+185;
+	      	star1.position.z = 10;
+	      	scene.add(star1);
+
+	      	var star2 = new THREE.Mesh(new THREE.SphereGeometry(5,2,2),
+	      	new THREE.MeshBasicMaterial({color: 0xAFEEEE}));
+	      	star2.position.y = 250+148;
+	      	star2.position.x = 350+202;
+	      	star2.position.z = 10;
+	      	scene.add(star2);
+
+	      	var star3 = new THREE.Mesh(new THREE.SphereGeometry(5,2,2),
+	      	new THREE.MeshBasicMaterial({color: 0xAFEEEE}));
+	      	star3.position.y = 250+131;
+	      	star3.position.x = 350+221;
+	      	star3.position.z = 10;
+	      	scene.add(star3);
+
+	      	var star4 = new THREE.Mesh(new THREE.SphereGeometry(5,2,2),
+	      	new THREE.MeshBasicMaterial({color: 0xAFEEEE}));
+	      	star4.position.y = 250+160;
+	      	star4.position.x = 350+230;
+	      	star4.position.z = 10;
+	      	scene.add(star4);
+
+	      	var star5 = new THREE.Mesh(new THREE.SphereGeometry(5,2,2),
+	      	new THREE.MeshBasicMaterial({color: 0xAFEEEE}));
+	      	star5.position.y = 250+237;
+	      	star5.position.x = 350+254;
+	      	star5.position.z = 10;
+	      	scene.add(star5);
+
+		</script>
+	</foot>
+</html>
