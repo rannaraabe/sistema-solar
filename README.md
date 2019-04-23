@@ -1,3 +1,3 @@
-# Sistema Solar
+# Sistema Solar com three.js
 
-Utilizando os conhecimentos básicos de three.js para criar um sistema solar simples.
+Projeto simples utilizando conhecimentos básicos de three.js para criação de um sistema solar.
